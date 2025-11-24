@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>نتائج التحليل</title>
+  <meta name="description" content="عرض نتائج التحليل الطبي">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../Css/analyzing.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header with Status -->
+    <div class="header">
+      <div id="statusIcon" class="status-icon">
+        <i class="fas fa-spinner fa-spin"></i>
+      </div>
+      <h1>نتائج التحليل الطبي</h1>
+      <p id="statusText" class="status-text">جاري تحميل النتائج...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage"></div>
+    
+    <!-- Warning Message -->
+    <div class="warning-message" id="warningMessage"></div>
+
+    <!-- Extracted Text Section -->
+    <div class="section" id="extractedSection" style="display: none;">
+      <div class="section-title">
+        <i class="fas fa-file-alt"></i>
+        <span>النص المستخرج من الصورة</span>
+      </div>
+      <div class="extracted-text" id="extractedText">
+        جاري تحميل النص المستخرج...
+      </div>
+      <button class="toggle-btn" id="toggleExtracted">
+        <i class="fas fa-expand"></i> عرض المزيد
+      </button>
+    </div>
+
+    <!-- Analysis Result Section -->
+    <div class="section" id="analysisSection" style="display: none;">
+      <div class="section-title">
+        <i class="fas fa-stethoscope"></i>
+        <span>التحليل الطبي المفصل</span>
+      </div>
+      <div class="analysis-result" id="analysisResult">
+        جاري تحميل نتائج التحليل...
+      </div>
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-section" id="chatSection" style="display: none;">
+      <div class="section-title">
+        <i class="fas fa-comments"></i>
+        <span>محادثة مع المساعد الطبي</span>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <!-- Chat messages will be inserted here -->
+      </div>
+      <div class="chat-input-container">
+        <input 
+          type="text" 
+          class="chat-input" 
+          id="chatInput" 
+          placeholder="اكتب سؤالك هنا للحصول على مزيد من التوضيح..."
+        />
+        <button class="chat-send-btn" id="chatSendBtn">
+          <i class="fas fa-paper-plane"></i>
+          <span>إرسال</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" id="printBtn" disabled>
+        <i class="fas fa-print"></i>
+        طباعة النتائج
+      </button>
+      <button class="btn btn-success" id="downloadBtn" disabled>
+        <i class="fas fa-download"></i>
+        تحميل كملف نصي
+      </button>
+      <a href="index.html" class="btn btn-secondary">
+        <i class="fas fa-redo"></i>
+        تحليل جديد
+      </a>
+    </div>
+  </div>
+<script src="../JS/analyzing.js"></script>
+</body>
+</html>

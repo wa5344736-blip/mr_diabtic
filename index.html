@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up / Sign In</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" src="Css/login.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle" id="langToggle">
+        <span id="langIcon">AR</span>
+    </div>
+
+    <div class="main-container">
+        <!-- Left Half - Logo -->
+        <div class="logo-half">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="logo-text" data-en="MR DIA" data-ar="السيد ديا">MR DIA</div>
+            </div>
+        </div>
+
+        <!-- Right Half - Form -->
+        <div class="form-half">
+            <div class="form-content">
+                <!-- Tab Buttons -->
+                <div class="tab-container">
+                    <button class="tab-btn active" id="signupTab" data-en="Sign Up" data-ar="إنشاء حساب">Sign Up</button>
+                    <button class="tab-btn" id="signinTab" data-en="Sign In" data-ar="تسجيل دخول">Sign In</button>
+                </div>
+
+                <!-- Form Section -->
+                <div class="form-section">
+                    <!-- Signup Form -->
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="signupName" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="signupName" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupEmail" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="signupEmail" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupPassword" data-en="Password" data-ar="كلمة المرور">Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="signupPassword" required>
+                                <i class="fas fa-eye toggle-password input-icon" id="toggleSignupPassword"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text" data-en="Create Account" data-ar="إنشاء حساب">Create Account</span>
+                        </button>
+                    </form>
+
+                    <!-- Signin Form -->
+                    <form id="signinForm" class="hidden">
+                        <div class="form-group">
+                            <label for="signinEmail" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="signinEmail" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signinPassword" data-en="Password" data-ar="كلمة المرور">Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="signinPassword" required>
+                                <i class="fas fa-eye toggle-password input-icon" id="toggleSigninPassword"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text" data-en="Sign In" data-ar="تسجيل دخول">Sign In</span>
+                        </button>
+                    </form>
+
+                    <!-- Feedback Message -->
+                    <div class="feedback" id="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="module" src="pages/login.js"></script>
+</body>
+</html>

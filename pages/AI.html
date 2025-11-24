@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Claude - Your AI assistant by Anthropic">
+  <meta name="theme-color" content="#FFFFFF">
+  <title>Claude</title>
+  
+  <!-- Authentic Claude Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Marked.js for Markdown Rendering -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+  <link rel="stylesheet" href="../Css/AI.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+      <!-- Sidebar Header with Logo and Close Button -->
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon" aria-hidden="true"></div>
+          <span class="logo-text">Claude</span>
+        </div>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close sidebar" title="Shift + S">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- New Chat Button -->
+      <button class="new-chat-btn" id="newChatBtn" aria-label="Start new conversation">
+        <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span id="newChatText">محادثة جديدة</span>
+      </button>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" aria-label="Primary">
+        <button class="nav-item" aria-label="Home">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span id="homeText">الرئيسية</span>
+        </button>
+      </nav>
+
+      <!-- Recent Conversations -->
+      <div class="recents-section" role="region" aria-label="Recent conversations">
+        <div class="recents-header" id="recentHeader">الأخيرة</div>
+        <div id="recentsList"></div>
+      </div>
+
+      <!-- User Profile Section -->
+      <div class="user-profile">
+        <button class="profile-btn" id="settingsBtn" aria-label="Open settings">
+          <div class="avatar" id="userAvatar" aria-hidden="true">م</div>
+          <div class="profile-info">
+            <div class="profile-name" id="userName">مستخدم</div>
+            <div class="profile-plan" id="planText">خطة مجانية</div>
+          </div>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6m5.196-13.804l-4.242 4.242m0 5.962l4.242 4.242M1 12h6m6 0h6m-13.804-5.196l4.242 4.242m0 5.962l-4.242 4.242"></path>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="mainContent" role="main">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar" title="Shift + S">
+          <svg class="icon icon-lg" viewBox="0 0 24 24" aria-hidden="true">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="plan-badge">
+          <span class="plan-text" id="topPlanText">صنع بواسطة وجدي</span>
+        </div>
+      </header>
+
+      <!-- Content Area -->
+      <div class="content-area" id="contentArea">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="hero-title">
+            <h1 class="hero-text" id="heroText">كيف يمكنني مساعدتك اليوم؟</h1>
+          </div>
+
+          <div class="input-container">
+            <!-- Main Input Box -->
+            <div class="input-box" role="search">
+              <label for="mainInput" class="sr-only">اكتب رسالة إلى كلود</label>
+              <textarea 
+                class="input-textarea" 
+                id="mainInput" 
+                placeholder="اكتب رسالة إلى كلود..." 
+                rows="1"
+                aria-label="Message input"
+              ></textarea>
+              <div class="input-toolbar">
+                <div class="toolbar-left">
+                  <button class="icon-btn" id="attachBtn" title="إرفاق ملف" aria-label="Attach file">
+                    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                    </svg>
+                  </button>
+                </div>
+                <button class="send-btn" id="sendBtn" disabled aria-label="Send message">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+                    <line x1="12" y1="19" x2="12" y2="5"></line>
+                    <polyline points="5 12 12 5 19 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Suggestion Chips -->
+            <div class="suggestions" role="group" aria-label="Suggested prompts">
+              <button class="suggestion-chip" data-suggestion="ساعدني في كتابة بريد إلكتروني احترافي">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span id="suggest1">ساعدني في كتابة بريد إلكتروني</span>
+              </button>
+              <button class="suggestion-chip" data-suggestion="اشرح الحوسبة الكمية بعبارات بسيطة">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span id="suggest2">اشرح مفهوماً معقداً</span>
+              </button>
+              <button class="suggestion-chip" data-suggestion="قم بتحليل هذه البيانات وإيجاد الاتجاهات">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span id="suggest3">تحليل بعض البيانات</span>
+              </button>
+              <button class="suggestion-chip" data-suggestion="اكتب دالة Python لي">
+                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <span id="suggest4">اكتب بعض الأكواد</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Messages Area -->
+        <div class="messages-area" id="messagesArea" style="display: none;" role="log" aria-live="polite" aria-label="Conversation"></div>
+      </div>
+
+      <!-- Bottom Input (shown during conversation) -->
+      <div class="bottom-input" id="bottomInput" style="display: none;">
+        <div class="input-box">
+          <label for="bottomTextarea" class="sr-only">الرد على كلود</label>
+          <textarea 
+            class="input-textarea" 
+            id="bottomTextarea" 
+            placeholder="الرد على كلود..." 
+            rows="1"
+            aria-label="Reply input"
+          ></textarea>
+          <div class="input-toolbar">
+            <div class="toolbar-left">
+              <button class="icon-btn" id="bottomAttachBtn" title="إرفاق ملف" aria-label="Attach file">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path>
+                </svg>
+              </button>
+            </div>
+            <button class="send-btn" id="bottomSendBtn" disabled aria-label="Send message">
+              <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Settings Overlay -->
+  <div class="settings-overlay" id="settingsOverlay" role="dialog" aria-modal="true" aria-labelledby="settingsHeader">
+    <div class="settings-panel">
+      <h2 class="settings-header" id="settingsHeader">الإعدادات</h2>
+      
+      <!-- Language Toggle -->
+      <div class="settings-group">
+        <div class="settings-toggle">
+          <label class="settings-label" id="languageLabel">اللغة الإنجليزية (English)</label>
+          <button 
+            class="toggle-switch" 
+            id="languageToggle" 
+            role="switch" 
+            aria-checked="false"
+            aria-label="Toggle English language"
+          >
+            <div class="toggle-slider"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Theme Toggle -->
+      <div class="settings-group">
+        <div class="settings-toggle">
+          <label class="settings-label" id="themeLabel">الوضع الداكن</label>
+          <button 
+            class="toggle-switch" 
+            id="themeToggle" 
+            role="switch" 
+            aria-checked="false"
+            aria-label="Toggle dark mode"
+          >
+            <div class="toggle-slider"></div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="settings-actions">
+        <button class="btn-cancel" id="cancelBtn">إلغاء</button>
+        <button class="btn-save" id="saveBtn">حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase and Script -->
+  <script type="module" src="../JS/firestore.js"></script>
+  <script type="module" src="../JS/AI.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تحليل النتائج - رفع الصورة</title>
+  <meta name="description" content="رفع وتحليل نتائج التحاليل الطبية">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../Css/upload.css">
+</head>
+<body>
+
+  <!-- Settings Button -->
+  <button class="settings-btn" id="settingsBtn" aria-label="الإعدادات">
+    <i class="fas fa-cog"></i>
+  </button>
+
+  <!-- Settings Menu -->
+  <div class="settings-menu" id="settingsMenu">
+    <div class="settings-item" id="themeToggle">
+      <span id="themeText">الوضع الداكن</span>
+      <i class="fas fa-moon"></i>
+    </div>
+    <div class="settings-item" id="langToggle">
+      <span id="langText">English</span>
+      <i class="fas fa-language"></i>
+    </div>
+  </div>
+
+  <!-- Progress Modal -->
+  <div class="progress-modal" id="progressModal">
+    <div class="progress-content">
+      <div class="progress-circle">
+        <svg width="120" height="120">
+          <circle class="progress-circle-bg" cx="60" cy="60" r="54"></circle>
+          <circle class="progress-circle-fill" id="progressCircleFill" cx="60" cy="60" r="54"></circle>
+        </svg>
+        <div class="progress-percentage" id="progressPercentage">0%</div>
+      </div>
+      <div class="progress-stage" id="progressStage">جاري التحضير...</div>
+      <div class="progress-details" id="progressDetails"></div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <div class="logo">
+      <img src="logo.png" alt="الشعار" onerror="this.style.display='none'" />
+    </div>
+    
+    <!-- Preview Box -->
+    <div class="preview-container">
+      <!-- Placeholder -->
+      <div class="preview-placeholder" id="placeholder">
+        <i class="fas fa-camera"></i>
+        <p id="placeholderText">ارفق صورة / صوّر الآن</p>
+      </div>
+
+      <!-- Image Preview -->
+      <img class="preview-image" id="previewImage" alt="معاينة الصورة" />
+
+      <!-- Delete Overlay -->
+      <div class="delete-overlay" id="deleteOverlay">
+        <i class="fas fa-sync-alt"></i>
+      </div>
+    </div>
+
+    <!-- Status Message -->
+    <div class="status-message" id="statusMessage"></div>
+
+    <!-- Upload Button & Menu -->
+    <div style="position: relative;">
+      <button class="btn btn-primary" id="uploadBtn">
+        <i class="fas fa-camera"></i>
+        <span id="uploadBtnText">ارفاق صورة / تصوير</span>
+      </button>
+
+      <!-- Upload Menu -->
+      <div class="upload-menu" id="uploadMenu">
+        <div class="upload-option" id="uploadFile">
+          <i class="fas fa-folder-open"></i>
+          <span id="uploadFileText">رفع من الجهاز</span>
+        </div>
+        <div class="upload-option" id="takePhoto">
+          <i class="fas fa-camera"></i>
+          <span id="takePhotoText">تصوير مباشر</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hidden Inputs for File & Camera -->
+    <input type="file" id="fileInput" accept="image/png,image/jpg,image/jpeg" class="file-input">
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" class="file-input">
+
+    <!-- Change Image Button -->
+    <button class="btn btn-change" id="changeBtn">
+      <i class="fas fa-exchange-alt"></i>
+      <span id="changeBtnText">تغيير الصورة</span>
+    </button>
+
+    <!-- Analyze Button -->
+    <button class="btn btn-secondary" id="analyzeBtn" disabled>
+      <i class="fas fa-flask"></i>
+      <span id="analyzeBtnText">تحليل النتيجة</span>
+    </button>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="error-message"></div>
+  </div>
+
+  <!-- Load Tesseract -->
+  <script src="https://unpkg.com/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+  <script src="../JS/upload.js"></script>
+</body>
+</html>

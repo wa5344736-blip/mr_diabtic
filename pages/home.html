@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <title>Safe Fasting - Soom Safety</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;600;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Tailwind CDN -->
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = { theme: { extend: { fontFamily: { tajawal: ['Tajawal','Inter','system-ui'], inter: ['Inter','Tajawal','system-ui'] } } } };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" src="../Css/home.css">
+</head>
+<body>
+  
+  <!-- Hamburger Button -->
+  <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">
+    <div class="hamburger-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </button>
+
+  <!-- Side Menu -->
+  <nav class="side-menu" id="sideMenu">
+    <div style="margin-bottom:20px">
+      <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">Soom Safety</h2>
+      <p class="muted" style="font-size:13px" id="userEmail">Loading...</p>
+    </div>
+
+    <div class="menu-divider"></div>
+
+    <!-- Theme Toggle -->
+    <div class="menu-item" id="menuThemeToggle">
+      <i class="fa-solid fa-moon" id="menuThemeIcon"></i>
+      <span id="menuThemeText">Dark Mode</span>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="menu-item" id="menuLangToggle">
+      <i class="fa-solid fa-language"></i>
+      <span id="menuLangText">English</span>
+    </div>
+
+    <div class="menu-divider"></div>
+
+    <!-- Navigation Links -->
+    <a href="diet.html" class="menu-item">
+      <i class="fa-solid fa-utensils"></i>
+      <span id="menuDiet">Diet Plan</span>
+    </a>
+
+    <a href="upload.html" class="menu-item">
+      <i class="fa-solid fa-chart-line"></i>
+      <span id="menuAnalyzing">Analasys</span>
+    </a>
+
+    <a href="AI.html" class="menu-item">
+      <i class="fa-solid fa-robot"></i>
+      <span id="menuAssistant">AI Assistant</span>
+    </a>
+
+    <div class="menu-divider"></div>
+
+    <!-- Logout Button -->
+    <div class="menu-item logout-btn" id="logoutBtn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span id="menuLogout">Logout</span>
+    </div>
+  </nav>
+
+  <!-- Menu Overlay -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <div id="app" class="min-h-screen flex flex-col items-center apppad">
+    <div class="maxw w-full">
+
+      <!-- Loading State -->
+      <div id="loadingState" class="card fade">
+        <div class="spinner"></div>
+        <p class="text-center muted">Loading assessment...</p>
+      </div>
+
+      <!-- Large hero image -->
+      <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=1400&auto=format&fit=crop" 
+           alt="health hero" class="hero-image hidden" id="heroImage">
+
+      <!-- Hero card -->
+      <section class="hero-card fade hidden" id="heroCard">
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+          <div class="flex-1">
+            <h1 id="heroTitle">هل الصيام آمن لحالتك؟</h1>
+            <p id="heroSub" class="muted mt-2">أجب على أسئلة طبية موجزة لتحصل على تقييم سريري مفصّل وتوصيات قابلة للتحميل والمشاركة.</p>
+
+            <div class="mt-4 flex flex-wrap gap-3">
+              <button id="startBtn" class="btn btn-primary">
+                <i class="fa-solid fa-clipboard-question"></i>
+                <span id="startText">ابدأ الاختبار</span>
+              </button>
+              <button id="exampleBtn" class="btn btn-outline">
+                <i class="fa-regular fa-eye"></i>
+                <span id="exampleText">مثال</span>
+              </button>
+            </div>
+
+            <div class="mt-6 text-sm muted">
+              <div><strong style="font-size:15px;color:var(--accent1)">Soom Safety – Screening Tool</strong></div>
+              <div style="font-size:13px;margin-top:6px">Designed & programmed by وجدي أحمد</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Legal banner -->
+      <div id="legalBanner" class="mt-4 p-3 rounded-lg bg-yellow-50 border-l-4 border-yellow-400 card fade hidden">
+        <div class="text-sm" id="legalText">تنبيه: هذه الأداة فحص مبدئي فقط ولا تغني عن استشارة طبية مباشرة.</div>
+      </div>
+
+      <!-- Questions area -->
+      <main id="flow" class="mt-5">
+        <section id="questionsSection" class="hidden">
+          <div class="card q-wrapper">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px;flex-wrap:wrap">
+              <div style="flex:1;min-width:180px">
+                <div id="qIndicator" class="muted">السؤال 1 من 13</div>
+                <div id="qText" class="text-lg font-semibold mt-1">سؤال</div>
+              </div>
+              <div style="flex-basis:220px;min-width:160px">
+                <div class="prog"><i id="progBar"></i></div>
+              </div>
+            </div>
+
+            <div id="qCard" class="q-card" aria-live="polite"></div>
+
+            <div class="divider"></div>
+
+            <div class="mt-4 flex items-center justify-between gap-3 flex-wrap">
+              <button id="prevBtn" class="btn btn-outline" aria-label="Previous">
+                <i class="fa-solid fa-chevron-right"></i>
+                <span id="prevText">السابق</span>
+              </button>
+              <button id="nextBtn" class="btn btn-primary">
+                <span id="nextText">التالي</span>
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Result section -->
+        <section id="resultSection" class="hidden mt-4">
+          <div class="card fade">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div id="resultBadge" class="badge" style="background:linear-gradient(135deg,var(--accent2),var(--accent1))">
+                <i id="resultIcon" class="fa-solid fa-check"></i>
+              </div>
+              <div>
+                <div id="resultTitle" class="text-xl font-bold">آمن للصيام</div>
+                <div id="resultScore" class="muted">خطورة: 12%</div>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <h3 class="font-semibold" id="recsTitle">التوصيات السريعة</h3>
+              <ul id="quickRecs" class="list-disc pl-5 mt-2 muted"></ul>
+            </div>
+
+            <div class="mt-4 grid gap-2">
+              <button id="whatsappBtn" class="btn btn-accent w-full">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span id="whatsappText">إرسال النتيجة عبر واتساب</span>
+              </button>
+              <button id="downloadPdfBtn" class="btn btn-outline w-full">
+                <i class="fa-solid fa-file-pdf" style="color:#ef4444"></i>
+                <span id="pdfText">Download report (English)</span>
+              </button>
+              <button id="restartBtn" class="btn btn-outline w-full">
+                <i class="fa-solid fa-rotate-left"></i>
+                <span id="restartText">إعادة الاختبار</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+<script type="module" src="../JS/home.js"></script>
+</body>
+</html>
