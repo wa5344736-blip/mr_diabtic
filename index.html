@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up / Sign In</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            direction: ltr;
+        }
+
+        body.rtl {
+            direction: rtl;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #000000;
+            color: #ffffff;
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        body.rtl .lang-toggle {
+            left: auto;
+            right: 20px;
+        }
+
+        .lang-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Container */
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 767px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .logo-half {
+                width: 100%;
+                display: block !important;
+            }
+
+            .form-half {
+                width: 100%;
+            }
+        }
+
+        /* Desktop Layout */
+        @media (min-width: 768px) {
+            .logo-half {
+                width: 50%;
+                min-height: 100vh;
+                background: #f9f9f9;
+            }
+
+            .form-half {
+                width: 50%;
+                min-height: 100vh;
+            }
+        }
+
+        /* Logo Section */
+        .logo-half {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        @media (min-width: 768px) {
+            .logo-section {
+                margin-top: 0;
+            }
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: #000000;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 48px;
+            color: #ffffff;
+        }
+
+        @media (min-width: 768px) {
+            .logo {
+                width: 200px;
+                height: 200px;
+                font-size: 80px;
+            }
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        @media (min-width: 768px) {
+            .logo-text {
+                font-size: 32px;
+            }
+        }
+
+        /* Form Half */
+        .form-half {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .form-half {
+                padding: 40px;
+            }
+        }
+
+        .form-content {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        /* Tab Container */
+        .tab-container {
+            width: 100%;
+            background: #f5f5f5;
+            border-radius: 12px;
+            padding: 5px;
+            display: flex;
+            gap: 5px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* Form Section */
+        .form-section {
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 45px 15px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        body.rtl input {
+            padding: 15px 15px 15px 45px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #000000;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+        }
+
+        body.rtl .input-icon {
+            right: auto;
+            left: 15px;
+        }
+
+        .toggle-password {
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            color: #000000;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            background: #000000;
+            color: #ffffff;
+            font-family: 'Cairo', 'Tajawal', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .submit-btn.loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .submit-btn.loading .btn-text {
+            opacity: 0;
+        }
+
+        .submit-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid #ffffff;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Feedback Message */
+        .feedback {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .feedback.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        /* Hidden class */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle" id="langToggle">
+        <span id="langIcon">AR</span>
+    </div>
+
+    <div class="main-container">
+        <!-- Left Half - Logo -->
+        <div class="logo-half">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="logo-text" data-en="MR DIA" data-ar="السيد ديا">MR DIA</div>
+            </div>
+        </div>
+
+        <!-- Right Half - Form -->
+        <div class="form-half">
+            <div class="form-content">
+                <!-- Tab Buttons -->
+                <div class="tab-container">
+                    <button class="tab-btn active" id="signupTab" data-en="Sign Up" data-ar="إنشاء حساب">Sign Up</button>
+                    <button class="tab-btn" id="signinTab" data-en="Sign In" data-ar="تسجيل دخول">Sign In</button>
+                </div>
+
+                <!-- Form Section -->
+                <div class="form-section">
+                    <!-- Signup Form -->
+                    <form id="signupForm">
+                        <div class="form-group">
+                            <label for="signupName" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="signupName" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupEmail" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="signupEmail" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signupPassword" data-en="Password" data-ar="كلمة المرور">Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="signupPassword" required>
+                                <i class="fas fa-eye toggle-password input-icon" id="toggleSignupPassword"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text" data-en="Create Account" data-ar="إنشاء حساب">Create Account</span>
+                        </button>
+                    </form>
+
+                    <!-- Signin Form -->
+                    <form id="signinForm" class="hidden">
+                        <div class="form-group">
+                            <label for="signinEmail" data-en="Email Address" data-ar="البريد الإلكتروني">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="signinEmail" required>
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signinPassword" data-en="Password" data-ar="كلمة المرور">Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="signinPassword" required>
+                                <i class="fas fa-eye toggle-password input-icon" id="toggleSigninPassword"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-text" data-en="Sign In" data-ar="تسجيل دخول">Sign In</span>
+                        </button>
+                    </form>
+
+                    <!-- Feedback Message -->
+                    <div class="feedback" id="feedback"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            getDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD-Jd1rrLO1LC_0EoGIdrNLUCXTfqRh0uM",
+            authDomain: "mr-dia.firebaseapp.com",
+            projectId: "mr-dia",
+            storageBucket: "mr-dia.appspot.com",
+            messagingSenderId: "528685312667",
+            appId: "1:528685312667:web:cc5f89cf8c1f05f157743e",
+            measurementId: "G-5DMP99EVN6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        console.log('✅ Firebase initialized');
+
+        // ==================== LANGUAGE TOGGLE ====================
+        let currentLang = 'en';
+        const langToggle = document.getElementById('langToggle');
+        const langIcon = document.getElementById('langIcon');
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            langIcon.textContent = currentLang === 'en' ? 'AR' : 'EN';
+            document.body.classList.toggle('rtl', currentLang === 'ar');
+            
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        langToggle.addEventListener('click', toggleLanguage);
+
+        // ==================== TAB SWITCHING ====================
+        const signupTab = document.getElementById('signupTab');
+        const signinTab = document.getElementById('signinTab');
+        const signupForm = document.getElementById('signupForm');
+        const signinForm = document.getElementById('signinForm');
+        const feedback = document.getElementById('feedback');
+
+        signupTab.addEventListener('click', () => {
+            signupTab.classList.add('active');
+            signinTab.classList.remove('active');
+            signupForm.classList.remove('hidden');
+            signinForm.classList.add('hidden');
+            feedback.style.display = 'none';
+        });
+
+        signinTab.addEventListener('click', () => {
+            signinTab.classList.add('active');
+            signupTab.classList.remove('active');
+            signinForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+            feedback.style.display = 'none';
+        });
+
+        // ==================== PASSWORD TOGGLE ====================
+        const toggleSignupPassword = document.getElementById('toggleSignupPassword');
+        const toggleSigninPassword = document.getElementById('toggleSigninPassword');
+        const signupPassword = document.getElementById('signupPassword');
+        const signinPassword = document.getElementById('signinPassword');
+
+        toggleSignupPassword.addEventListener('click', () => {
+            const type = signupPassword.type === 'password' ? 'text' : 'password';
+            signupPassword.type = type;
+            toggleSignupPassword.classList.toggle('fa-eye');
+            toggleSignupPassword.classList.toggle('fa-eye-slash');
+        });
+
+        toggleSigninPassword.addEventListener('click', () => {
+            const type = signinPassword.type === 'password' ? 'text' : 'password';
+            signinPassword.type = type;
+            toggleSigninPassword.classList.toggle('fa-eye');
+            toggleSigninPassword.classList.toggle('fa-eye-slash');
+        });
+
+        // ==================== FEEDBACK MESSAGE ====================
+        function showFeedback(message, type = 'success') {
+            feedback.textContent = message;
+            feedback.className = `feedback ${type}`;
+            feedback.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 3000);
+            }
+        }
+
+        // ==================== SIGNUP ====================
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = signupForm.querySelector('.submit-btn');
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+
+            // Validation
+            if (!name || !email || !password) {
+                showFeedback(currentLang === 'en' ? 'Please fill in all fields' : 'يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showFeedback(currentLang === 'en' ? 'Password must be at least 6 characters' : 'كلمة المرور يجب أن تكون 6 أحرف على الأقل', 'error');
+                return;
+            }
+
+            try {
+                submitBtn.classList.add('loading');
+                console.log('🔄 Starting signup process...');
+                
+                // Step 1: Create authentication account
+                const userCred = await createUserWithEmailAndPassword(auth, email, password);
+                const userId = userCred.user.uid;
+                
+                console.log('✅ Auth account created:', userId);
+
+                // Step 2: Save user data to Firestore
+                await setDoc(doc(db, "users", userId), {
+                    uid: userId,
+                    name: name,
+                    email: email,
+                    createdAt: serverTimestamp()
+                });
+                
+                console.log('✅ User data saved to Firestore');
+
+                // Step 3: Show success and redirect
+                showFeedback(
+                    currentLang === 'en' ? '✅ Account created successfully! Redirecting...' : '✅ تم إنشاء الحساب بنجاح! جاري التحويل...', 
+                    'success'
+                );
+                
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 1500);
+                
+            } catch (error) {
+                submitBtn.classList.remove('loading');
+                console.error('❌ Signup error:', error);
+                
+                let errorMessage = currentLang === 'en' ? 'Registration failed. Please try again.' : 'فشل التسجيل. يرجى المحاولة مرة أخرى.';
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = currentLang === 'en' ? 'This email is already registered' : 'هذا البريد الإلكتروني مسجل بالفعل';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = currentLang === 'en' ? 'Invalid email address' : 'عنوان البريد الإلكتروني غير صالح';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = currentLang === 'en' ? 'Password is too weak' : 'كلمة المرور ضعيفة جداً';
+                } else if (error.code === 'permission-denied') {
+                    errorMessage = currentLang === 'en' ? 'Database permission denied. Please contact support.' : 'تم رفض الإذن. يرجى الاتصال بالدعم.';
+                }
+                
+                showFeedback(errorMessage, 'error');
+            }
+        });
+
+        // ==================== SIGNIN ====================
+        signinForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = signinForm.querySelector('.submit-btn');
+            const email = document.getElementById('signinEmail').value.trim();
+            const password = document.getElementById('signinPassword').value;
+
+            if (!email || !password) {
+                showFeedback(currentLang === 'en' ? 'Please fill in all fields' : 'يرجى ملء جميع الحقول', 'error');
+                return;
+            }
+
+            try {
+                submitBtn.classList.add('loading');
+                console.log('🔄 Starting signin process...');
+                
+                const userCred = await signInWithEmailAndPassword(auth, email, password);
+                const userId = userCred.user.uid;
+                
+                console.log('✅ User signed in:', userId);
+
+                // Get user profile from Firestore
+                const userDoc = await getDoc(doc(db, "users", userId));
+                const userData = userDoc.exists() ? userDoc.data() : {};
+                
+                console.log('✅ User profile loaded:', userData);
+                
+                showFeedback(
+                    currentLang === 'en' ? '✅ Signed in successfully! Redirecting...' : '✅ تم تسجيل الدخول بنجاح! جاري التحويل...', 
+                    'success'
+                );
+                
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 1500);
+                
+            } catch (error) {
+                submitBtn.classList.remove('loading');
+                console.error('❌ Signin error:', error);
+                
+                let errorMessage = currentLang === 'en' ? 'Email or password is incorrect' : 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = currentLang === 'en' ? 'Invalid email or password' : 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = currentLang === 'en' ? 'Too many attempts. Please try again later.' : 'محاولات كثيرة جداً. يرجى المحاولة لاحقاً.';
+                }
+                
+                showFeedback(errorMessage, 'error');
+            }
+        });
+
+        // ==================== AUTO-REDIRECT IF ALREADY LOGGED IN ====================
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log('✅ User already logged in:', user.uid);
+                // Uncomment the line below if you want auto-redirect
+                // window.location.href = 'home.html';
+            }
+        });
+    </script>
+</body>
+</html>
